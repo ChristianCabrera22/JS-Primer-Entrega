@@ -1,9 +1,16 @@
-//Primera Pre-Entrega
+//Primera Pre-Entrega Christian Cabrera.. 
 let vida=3; //Cantidad de intentos
 let alerVida=false; //Alerta sobre ultima vida
 let letrasIngresadas =""; //va concatenando las letras ingresadas
 let repetido=false; //bloquea el ingreso de una letra ya ingresada
-let palabra="mascota"; //Palabra ganadora, por ahora 1 sola.. con array podria poner más
+
+/////////////puedes cambiar la palabra, esta diseñado para que pongas la palabra que quieras: 
+
+let palabra="MASCOTA"; //Palabra ganadora, por ahora 1 sola.. con array podria poner más
+
+////////////////////////
+
+palabra=palabra.toUpperCase(); //convierte todo en mayuscula (por las dudas que coloquen en minuscula)
 let palabra2="";
 let palabraTemporal=""; //concatena las letras ingresadas
 let conGanador=0;
@@ -28,7 +35,7 @@ console.log("Nombre del jugador: "+nombre);
 alert("Bienvenido "+nombre+", este es el juego del ahorcado! \n Tu misión es salvar al tutor de las garras de CODER");
 
 
-do {
+do { //arranca lo bueno
 do {
     if(vida==1&&alerVida==false) {
         alert("Ultima vida!");
