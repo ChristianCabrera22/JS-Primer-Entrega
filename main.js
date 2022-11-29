@@ -3,10 +3,18 @@ let vida=3; //Cantidad de intentos
 let alerVida=false; //Alerta sobre ultima vida
 let letrasIngresadas =""; //va concatenando las letras ingresadas
 let repetido=false; //bloquea el ingreso de una letra ya ingresada
-let palabra="MASCOTA"; //Palabra ganadora, por ahora 1 sola.. con array podria poner más
+let palabra="mascota"; //Palabra ganadora, por ahora 1 sola.. con array podria poner más
+let palabra2="";
 let palabraTemporal=""; //concatena las letras ingresadas
 let conGanador=0;
+let faltantes=""; //auxilar1 faltantes ej: _A__S_T_
+//let auxFaltantes=""; //auxiliar2 para guardar los mostrados
+let palabrasAcertadas=""; //Muestra aciertos
 let win=false; //ganador o perdedor
+let auxFaltantes=""; //cantidad de ______ para ir mostrando
+for (let i = 0; i< palabra.length; i++) {
+    auxFaltantes=auxFaltantes+"_";
+}
 const patron = new RegExp('^[A-Z]+$', 'i'); //patron para que se ingrese solo letras - Y NO NUMEROS -
 
  //Ingreso nombre y validando el nombre
@@ -26,18 +34,21 @@ do {
         alert("Ultima vida!");
         alerVida=true;
     }
-    letra=prompt("      ____ :::::JUEGO DEL AHORCADO::::: ____\n\nJugador: "+nombre+"\n\nVidas Restantes: "+vida+"\nPalabras ingresadas:  "+letrasIngresadas+"\n"+palabraTemporal+"\nIngresa una letra:"); //Solicita la letra
+    letra=prompt("      ____ :::::JUEGO DEL AHORCADO::::: ____\n\nJugador: "+nombre+"\n\nVidas Restantes: "+vida+"\nLetras ingresadas:  "+letrasIngresadas+"\n-----:  "+palabra2+"  :-----\nIngresa una letra:"); //Solicita la letra
         if (letra!=null) {
         letra=letra.toUpperCase();
     }
     repetido=verRepetido(); //no te deja repetir la letra ingresada
     console.log("Repitio letra?: "+repetido);
+    if(repetido==true){
+        alert("Ya ingresaste la letra: "+letra+"\n Intente con otra por favor.")
+    }
 } while(letra == null || letra == "" || letra.length !==1 || !patron.test(letra) || repetido==true ); //
 
 console.log("Letra ingresada: "+letra);
 console.log("Vidas: "+vida)
-acerto=CompararLetra();
-
+acerto=CompararLetra(); //ver si acerto o no
+tem=agregarLetraPT(); // agregar letra acertada
 letrasIngresadas=letrasIngresadas+letra+" - ";
 if (acerto==0) {
     vida--;
@@ -48,7 +59,9 @@ if (acerto==0) {
     conGanador=conGanador+acerto;
     console.log("Acertó?: SI");
     console.log(conGanador+" acertadas de "+palabra.length+"\n");
-    console.log("----------------------------------");
+    console.log("\nPalabras acertadas: "+palabrasAcertadas+"    ");
+    palabra2=palabrasAcertadas;
+    console.log("\n----------------------------------");
     if (conGanador==palabra.length){
         console.log("Ganador!!");
         win=true;
@@ -56,25 +69,42 @@ if (acerto==0) {
     }
 }
 
+auxFaltantes=palabrasAcertadas;
+faltantes=""; //resetea faltantes
+palabrasAcertadas="";
 } while (vida!=0);
 
 if (win==true){
     alert("Ganador!! ");
 } else {
     console.log("FIN DEL JUEGO:::")
-    alert("Lo siento, perdiste..\nLa palabra era: "+palabra+"\n\nSuerte en la proxima!");
+    alert("Lo siento "+nombre+", perdiste..\nLa palabra era: "+palabra+"\n\nSuerte en la proxima!");
 }
-//M A S C O T A
+//A M S
+//M A S C O T A //palabra
 
 
-
-
+//A C T         //palabraTemporal
+// ________     //aciertos
+// ___             //faltantes
 //funciones:
-function agregarLetraPT(){
+function agregarLetraPT() {
+    for (let i = 0; i< palabra.length; i++) { //0 al 6
+        if (palabra.charAt(i)==letra){
+            faltantes=faltantes+letra;
+        } else {
+            faltantes=faltantes+"_";
+        }
+    }
     for (let i = 0; i< palabra.length; i++) {
-        let caracter = palabra.charAt(i);
-        if(caracter == letra) {}
-   }
+        if(auxFaltantes.charAt(i)=="_" && faltantes.charAt(i)=="_") {
+            palabrasAcertadas=palabrasAcertadas+"_";
+        } else if (faltantes.charAt(i)=="_") {
+            palabrasAcertadas=palabrasAcertadas+auxFaltantes.charAt(i);
+        } else {
+            palabrasAcertadas=palabrasAcertadas+faltantes.charAt(i);
+        }
+    }
 }
 function CompararLetra(){
     let b=0;
