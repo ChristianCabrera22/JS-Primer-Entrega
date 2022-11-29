@@ -5,9 +5,10 @@ let letrasIngresadas =""; //va concatenando las letras ingresadas
 let repetido=false; //bloquea el ingreso de una letra ya ingresada
 
 /////////////puedes cambiar la palabra, esta diseñado para que pongas la palabra que quieras: 
-
-let palabra="MASCOTA"; //Palabra ganadora, por ahora 1 sola.. con array podria poner más
-
+let palabra=prompt("Hola! este es el juego del ahorcado, ingresa una palabra, de lo contrario se asignará una aleatoria: ");
+if (palabra==null || palabra=="") {
+    palabra="MASCOTA"; //Palabra ganadora, por ahora 1 sola.. con array podria poner más
+}
 ////////////////////////
 
 palabra=palabra.toUpperCase(); //convierte todo en mayuscula (por las dudas que coloquen en minuscula)
@@ -25,14 +26,14 @@ for (let i = 0; i< palabra.length; i++) {
 const patron = new RegExp('^[A-Z]+$', 'i'); //patron para que se ingrese solo letras - Y NO NUMEROS -
 
  //Ingreso nombre y validando el nombre
-let nombre=prompt("Hola! Como te llamas?");
+let nombre=prompt("Como te llamas?");
 while(nombre == null || nombre == "") {
     nombre=prompt("Por favor! Como te llamas?"); //Solicita nuevamente el nombre
 }
 console.log("Nombre del jugador: "+nombre);
 
 //Mensaje bienvenida:
-alert("Bienvenido "+nombre+", este es el juego del ahorcado! \n Tu misión es salvar al tutor de las garras de CODER");
+alert("Bienvenido "+nombre+",\n Tu misión es adivinar la palabra escondida!\nTienes 3 Vidas, no las desperdicies...");
 
 
 do { //arranca lo bueno
@@ -82,7 +83,7 @@ palabrasAcertadas="";
 } while (vida!=0);
 
 if (win==true){
-    alert("Ganador!! ");
+    alert("Felicidades "+nombre+"!! Ganaste!! \n\nMuchas gracias por participar.!");
 } else {
     console.log("FIN DEL JUEGO:::")
     alert("Lo siento "+nombre+", perdiste..\nLa palabra era: "+palabra+"\n\nSuerte en la proxima!");
